@@ -16,14 +16,14 @@ if (partitionPath?.trim()) {
 
 	PartitionResolver<Map<String, Object>> resolver = partitionStrategy.getPartitionResolver()
 
-	hdfsPath = resolver.resolvePath(key);
-	
-	println hdfsPath
+	hdfsPath = resolver.resolvePath(key);	
 }
 
 if (!fsh.test(hdfsPath)) {
 	fsh.mkdir(hdfsPath)
 }
+
+println "Copy [$localFile] into [$hdfsPath]"
 
 fsh.put(localFile, hdfsPath)
 
