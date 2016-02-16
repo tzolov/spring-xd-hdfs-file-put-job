@@ -45,12 +45,16 @@ stream create --name copyLocalFilesToHdfs --definition "file --mode=ref --dir=/h
 ```
 Now all file you copy into the local `/home/spring-xd/local_files` folder will be `put` into HDFS via the `hdfs-file-put` job.
 
-##### hdfs-file-put Options
-* localFile - Local file (full path) to put in HDFS. REQUIRED as a job parameter!
-* deleteFiles - If set to `true` then deletes the source, local files. Default: false.
-* hdfsDir - HDFS directory under which files are stored. Default: "/tmp/xd/output/".
-* partitionPath - SpEL expression defining the partition path. Default: "".
-* restartable - Whether the job should be retartable or not in case of failure. Set this to false if the Job should not be restarted. Default: true.
+## hdfs-file-put Options
+
+
+| Option        | Description           | Default  |
+| ------------- |-------------|:-----:|
+| localFile | Local file (full path) to put in HDFS. | No Default!. Requred as a job parameter |
+| deleteFiles | If set to `true` then deletes the source, local files. | false |
+| hdfsDir | HDFS directory under which files are stored. | "/tmp/xd/output/" |
+| partitionPath | SpEL expression defining the partition path. | '' |
+| restartable | Whether the job should be retartable or not in case of failure. Set this to false if the Job should not be restarted. | true |
 
 
 
