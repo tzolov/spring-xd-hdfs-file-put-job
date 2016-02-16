@@ -2,21 +2,21 @@
 
 To be used as work around for ingesting binary files into HDFS. Currently the HDFS sink and other HDFS jobs support only text input files.
 
-#### Build
+## Build
 ```
 git clone 
 cd ./hdfs-file-put
 mvn clean install
 ```
-The build module is in `target` : `hdfs-file-put-0.0.5-SNAPSHOT.jar`
+The build module is in `target` : `hdfs-file-put-0.0.7-SNAPSHOT.jar`
 
-#### Install
+## Install
 Fromthe XD Shell run:
 ```
-xd:>module upload --name hdfs-file-put --type job --file <absolute path to the module jar>/hdfs-file-put-0.0.5-SNAPSHOT.jar
+xd:>module upload --name hdfs-file-put --type job --file <absolute path to the module jar>/hdfs-file-put-0.0.7-SNAPSHOT.jar
 ```
 
-#### How to use
+## How To Use
 
 ###### Create and Launch Job
 
@@ -41,21 +41,26 @@ $ hdfs dfs -ls /user/spring-xd/baseDir/**/**/**/**/**
 
 ###### Activate with XD Stream
 ```
-stream create --name copyLocalFilesToHdfs --definition "file --mode=ref --dir=/home/spring-xd/local_files | transform --expression={localFile:payload.getCanonicalPath()} > queue:job:hdfsPutJob" --deploy 
+xd:>stream create --name copyLocalFilesToHdfs --definition "file --mode=ref --dir=/home/spring-xd/local_files | transform --expression={localFile:payload.getCanonicalPath()} > queue:job:hdfsPutJob" --deploy 
 ```
 Now all file you copy into the local `/home/spring-xd/local_files` folder will be `put` into HDFS via the `hdfs-file-put` job.
 
-## hdfs-file-put Options
-
+## Job Options
+Job Options. Can be set either as command line parameter: `--optionName optionValue` or job parameters `{"optionName":"optionValue"}`
 
 | Option        | Description           | Default  |
 | ------------- |-------------|:-----:|
-| localFile | Local file (full path) to put in HDFS. | No Default!. Requred as a job parameter |
+| localFile | Local folder or file name (absolute path) to copy into HDFS. | Required (no default) |
 | deleteFiles | If set to `true` then deletes the source, local files. | false |
 | hdfsDir | HDFS directory under which files are stored. | "/tmp/xd/output/" |
 | partitionPath | SpEL expression defining the partition path. | '' |
 | restartable | Whether the job should be retartable or not in case of failure. Set this to false if the Job should not be restarted. | true |
 
+
+## Delete Module
+```
+xd:>module delete --name job:hdfs-file-put 
+```
 
 
 

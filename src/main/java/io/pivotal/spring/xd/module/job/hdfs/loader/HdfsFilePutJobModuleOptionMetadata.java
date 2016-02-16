@@ -28,6 +28,8 @@ public class HdfsFilePutJobModuleOptionMetadata {
 
 	protected Boolean deleteFiles = false;
 
+	protected String localFile = null;
+	
 	protected String hdfsDir = "/tmp/xd/output/";
 
 	protected String partitionPath = null;
@@ -67,5 +69,14 @@ public class HdfsFilePutJobModuleOptionMetadata {
 	@ModuleOption(value = "SpEL expression defining the partition path", defaultValue = "")
 	public void setPartitionPath(String partitionPath) {
 		this.partitionPath = partitionPath;
+	}
+
+	public String getLocalFile() {
+		return localFile;
+	}
+
+	@ModuleOption(value = "Source (local) file ot be copied to HDFS", defaultValue = "")
+	public void setLocalFile(String localFilePath) {
+		this.localFile = localFilePath;
 	}
 }

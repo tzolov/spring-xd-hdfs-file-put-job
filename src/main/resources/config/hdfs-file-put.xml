@@ -15,11 +15,11 @@
 	</batch:job>
 
 	<hdp:script-tasklet id="scriptTasklet" scope="step">
-		<hdp:script location="classpath:hdfs-loader.groovy">
-			<hdp:property name="localFile" value="#{jobParameters['localFile']}" />
-			<hdp:property name="hdfsDir" value="${hdfsDir}" />
-			<hdp:property name="deleteFiles" value="${deleteFiles}" />
-			<hdp:property name="partitionPath" value="${partitionPath:''}" />
+		<hdp:script location="classpath:hdfs-file-put.groovy">
+			<hdp:property name="localFile" value="${localFile:#{jobParameters['localFile']}}" />
+			<hdp:property name="hdfsDir" value="${hdfsDir:#{jobParameters['hdfsDir']}}" />
+			<hdp:property name="deleteFiles" value="${deleteFiles:#{jobParameters['deleteFiles']}}" />
+			<hdp:property name="partitionPath" value="${partitionPath:#{jobParameters['partitionPath']}:''}" />
 		</hdp:script>
 	</hdp:script-tasklet>
 
