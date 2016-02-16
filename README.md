@@ -1,8 +1,8 @@
-# hdfs-file-put Spring XD Job 
+## Spring XD Job for copying local files into HDFS (hdfs-file-put)
 
-To be used as work around for ingesting binary files into HDFS. Currently the HDFS sink and other HDFS jobs support only text input files.
+Existing SpringXD HDFS sink and HDFS jobs support only text  files! This job can be used to ingest both text and binary files. 
 
-## Build
+### Build
 ```
 git clone 
 cd ./hdfs-file-put
@@ -10,13 +10,13 @@ mvn clean install
 ```
 The build module is in `target` : `hdfs-file-put-0.0.7-SNAPSHOT.jar`
 
-## Install
+### Install
 Fromthe XD Shell run:
 ```
 xd:>module upload --name hdfs-file-put --type job --file <absolute path to the module jar>/hdfs-file-put-0.0.7-SNAPSHOT.jar
 ```
 
-## How To Use
+### How To Use
 
 ###### Create and Launch Job
 
@@ -45,7 +45,7 @@ xd:>stream create --name copyLocalFilesToHdfs --definition "file --mode=ref --di
 ```
 Now all file you copy into the local `/home/spring-xd/local_files` folder will be `put` into HDFS via the `hdfs-file-put` job.
 
-## Job Options
+### Job Options
 Job Options. Can be set either as command line parameter: `--optionName optionValue` or job parameters `{"optionName":"optionValue"}`
 
 | Option        | Description           | Default  |
@@ -57,7 +57,7 @@ Job Options. Can be set either as command line parameter: `--optionName optionVa
 | restartable | Whether the job should be retartable or not in case of failure. Set this to false if the Job should not be restarted. | true |
 
 
-## Delete Module
+### Delete Module
 ```
 xd:>module delete --name job:hdfs-file-put 
 ```
