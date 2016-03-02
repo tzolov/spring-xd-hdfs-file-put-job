@@ -6,17 +6,24 @@ import org.springframework.data.hadoop.store.partition.PartitionResolver;
 
 def String hdfsPath = hdfsDir
 
-if (partitionPath?.trim()) {
-	String expression = "region + '/' + " + partitionPath
+String str_partitionPath_empty = ":''"
 
-	DefaultPartitionStrategy<String> partitionStrategy = new DefaultPartitionStrategy<String>(expression)
+println "partitionPath : [$partitionPath]"
 
-	DefaultPartitionKey key = new DefaultPartitionKey()
-	key.put("region", hdfsDir)
-
-	PartitionResolver<Map<String, Object>> resolver = partitionStrategy.getPartitionResolver()
-
-	hdfsPath = resolver.resolvePath(key);	
+if( partitionPath != str_partitionPath_empty )
+{
+	if (partitionPath?.trim()) {
+		String expression = "region + '/' + " + partitionPath
+	
+		DefaultPartitionStrategy<String> partitionStrategy = new DefaultPartitionStrategy<String>(expression)
+	
+		DefaultPartitionKey key = new DefaultPartitionKey()
+		key.put("region", hdfsDir)
+	
+		PartitionResolver<Map<String, Object>> resolver = partitionStrategy.getPartitionResolver()
+	
+		hdfsPath = resolver.resolvePath(key);	
+	}
 }
 
 if (!fsh.test(hdfsPath)) {
